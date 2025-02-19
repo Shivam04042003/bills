@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Last 30 Bills</title>
+</head>
+<body>
+    <h1>Fetch Last 30 Bills</h1>
+
+    <form id="fetchBillDatesForm">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" name="customerName" id="customerName" placeholder="Enter Customer Name" required>
+        <button type="submit">Fetch Bill Dates</button>
+    </form>
+
+    <div id="billDates"></div>
+    <div id="billImage"></div>
+
+    <script>
+        // Handle form submission to fetch the last 30 bill dates
+        document.getElementById('fetchBillDatesForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const customerName = document.getElementById('customerName').value;
+
+            try {
+                const response = await fetch('/fetch-bill-dates', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ customerName }),
+                });
+
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    displayBillDates(data, customerName);
+                } else {
+                    document.getElementById('billDates').innerHTML = 'No bills found for the given customer';
+                }
+            } catch (error) {
+                console.error('Error fetching bill dates:', error);
+            }
+        });
+
+        // Function to display bill dates as clickable links/buttons
+        function displayBillDates(dates, customerName) {
+            const billDatesDiv = document.getElementById('billDates');
+            billDatesDiv.innerHTML = '';  // Clear previous data
+
+            dates.forEach(date => {
+                const button = document.createElement('button');
+                button.innerText = date;
+                button.onclick = () => fetchBillImage(customerName, date);  // Pass the customer name and date
+                billDatesDiv.appendChild(button);
+            });
+        }
+
+        // Function to fetch and display the bill image for a specific date
+        async function fetchBillImage(customerName, date) {
+            try {
+                const response = await fetch('/fetch-bill-image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ customerName, currentDate: date }),
+                });
+
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    displayBillImage(data[0].billImage);
+                } else {
+                    document.getElementById('billImage').innerHTML = 'No bill found for the selected date';
+                }
+            } catch (error) {
+                console.error('Error fetching bill image:', error);
+            }
+        }
+
+        // Function to display the bill image
+        function displayBillImage(imageBase64) {
+            const billImageDiv = document.getElementById('billImage');
+            billImageDiv.innerHTML = `<img src="data:image/png;base64,${imageBase64}" alt="Bill Image">`;
+        }
+    </script>
+
+    <script src="server.js"></script>
+</body>
+</html>

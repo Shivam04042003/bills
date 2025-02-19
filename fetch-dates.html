@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Bill Dates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #datesList {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fetch Bill Dates</h2>
+        <form id="fetchForm">
+            <input type="text" id="customerName" placeholder="Enter Customer Name" required>
+            <button type="submit">Fetch Dates</button>
+        </form>
+        <div id="datesList"></div>
+    </div>
+
+    <script>
+        document.getElementById('fetchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const customerName = document.getElementById('customerName').value.trim();
+            const response = await fetch(`/fetch-dates?customerName=${encodeURIComponent(customerName)}`);
+            const data = await response.json();
+
+            const datesList = document.getElementById('datesList');
+            datesList.innerHTML = ''; // Clear previous results
+
+            if (data.length === 0) {
+                datesList.innerHTML = '<p>No bills found for this customer.</p>';
+            } else {
+                const list = document.createElement('ul');
+                data.forEach(date => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = date;
+                    list.appendChild(listItem);
+                });
+                datesList.appendChild(list);
+            }
+        });
+    </script>
+</body>
+</html>

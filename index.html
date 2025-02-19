@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Making System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ----------------------CALCULATOR------------------------------- -->
+    <!-- Button to Open Calculator Popup -->
+    <button id="open-calculator">Open Calculator</button>
+
+    <!-- Hidden Calculator Modal Popup -->
+    <div id="calculator-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="calculator">
+                <input type="text" class="display" id="display" disabled>
+                <div class="buttons">
+                    <button onclick="clearDisplay()">C</button>
+                    <button onclick="deleteLast()">DEL</button>
+                    <button onclick="inputOperator('%')">%</button>
+                    <button onclick="inputOperator('/')">/</button>
+                    <button onclick="inputNumber(7)">7</button>
+                    <button onclick="inputNumber(8)">8</button>
+                    <button onclick="inputNumber(9)">9</button>
+                    <button onclick="inputOperator('*')">*</button>
+                    <button onclick="inputNumber(4)">4</button>
+                    <button onclick="inputNumber(5)">5</button>
+                    <button onclick="inputNumber(6)">6</button>
+                    <button onclick="inputOperator('-')">-</button>
+                    <button onclick="inputNumber(1)">1</button>
+                    <button onclick="inputNumber(2)">2</button>
+                    <button onclick="inputNumber(3)">3</button>
+                    <button onclick="inputOperator('+')">+</button>
+                    <button onclick="inputNumber(0)" class="zero">0</button>
+                    <button onclick="inputDecimal('.')">.</button>
+                    <button onclick="calculateResult()" class="equal">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <h1 style="text-align: center;">KUSHWAH FLORIST</h1>
+    <div style="position: absolute; top: 0; right: 20px;">
+        <input type="date" id="currentDate" onkeydown="focusNext(event)">
+        <select id="vehicleName" onkeydown="focusNext(event)">
+            <option value="">Select Vehicle</option>
+            <option value="Piyush">Piyush</option>
+            <option value="Patel">Patel</option>
+            <option value="Radhesyam">Radhesyam</option>
+            <option value="JaiMata">Jai Mata di</option>
+        </select>
+    </div>
+
+
+    
+    <form id="billForm">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" list="customerNames" id="customerName" name="customerName" onkeydown="focusNext(event)" placeholder="Enter or select a name">
+        <datalist id="customerNames">
+            <option value="अंसुमन">
+            <option value="अक्षय">
+            <option value="अतुल">
+            <option value="काना रमेश">
+            <option value="काव्या">
+            <option value="काला">
+            <option value="कमल">
+            <option value="कमलेश">
+            <option value="कुलदीप">
+            <option value="चिराग">
+            <option value="जीतेन्द्र">
+            <option value="तरुण">
+            <option value="देवश्री">
+            <option value="दिनेश">
+            <option value="दिलीप">
+            <option value="दुर्गेश">
+            <option value="पियूष">
+            <option value="पुना">
+            <option value="भोला">
+            <option value="मनीष">
+            <option value="मधुसूदन">
+            <option value="मदन">
+            <option value="मान">
+            <option value="मानवी">
+            <option value="राजेश">
+            <option value="रक्षिता">
+            <option value="राधेश्याम">
+            <option value="राधे">
+            <option value="विजय">
+            <option value="विनायक">
+            <option value="सावन">
+            <option value="सरवण">
+             <option value="सूरज">
+            <option value="तनु">
+            <option value="धर्मेंद्र">
+            <option value="नंदनी">
+            <option value="भोला">
+            <option value="हरिओम">
+            <option value="योगेश">
+            <option value="चिराग">
+            <option value="विस्वा"> 
+        </datalist>
+        
+
+
+        <!-- Rose Section -->
+        <div id="container">
+            <div id="Rose">
+                <label for="roseWeight">Weight of Roses (kg):</label>
+                <div style="display: flex;">
+                    <select id="roseWeightDropdown" name="roseWeightDropdown" style="margin-right: 5px;" onkeydown="focusNext(event)">
+                        <option value="गुलाब">गुलाब</option>
+                        <option value="Kashmiri">Kashmiri</option>
+                        <option value="GD">GD</option>
+                        <option value="बंडल">बंडल</option>
+                        <option value="डिवाइन">डिवाइन</option>
+                        <option value="जिप्सो">जिप्सो</option>
+                        <option value="पिनचिस">पिनचिस</option>
+                        <option value="सेवँती">सेवँती</option>
+                        <option value="नोरंगा">नोरंगा</option>
+                        <option value="पिंक सोफिया">पिंक सोफिया</option>
+                        <option value="बिजली">बिजली</option>
+                    </select>
+                    <input type="text" id="roseWeight" name="roseWeight" onkeydown="focusNext(event)">
+                </div>
+                <label for="roseRate">Rate per kg (Rs):</label>
+                <input type="text" id="roseRate" name="roseRate" onkeydown="focusNext(event)">
+            </div>
+        </div>
+       
+
+        <div id="Rose1" style="display: none;">
+            <label for="roseWeight1">Weight of Roses (kg):</label>
+            <div style="display: flex;">
+                <select id="roseWeightDropdown1" name="roseWeightDropdown1" style="margin-right: 5px;" onkeydown="focusNext(event)">
+                    <option value="">Blank</option>
+                    <option value="गुलाब">गुलाब</option>
+                    <option value="Kashmiri">Kashmiri</option>
+                    <option value="GD">GD</option>
+                    <option value="बंडल">बंडल</option>
+                    <option value="डिवाइन">डिवाइन</option>
+                    <option value="जिप्सो">जिप्सो</option>
+                    <option value="पिनचिस">पिनचिस</option>
+                    <option value="सेवँती">सेवँती</option>
+                    <option value="नोरंगा">नोरंगा</option>
+                    <option value="पिंक सोफिया">पिंक सोफिया</option>
+                    <option value="बिजली">बिजली</option>
+                </select>
+                <input type="text" id="roseWeight1" name="roseWeight1" onkeydown="focusNext(event)">
+            </div>
+            <label for="roseRate1">Rate per kg (Rs):</label>
+            <input type="text" id="roseRate1" name="roseRate1" onkeydown="focusNext(event)">
+        </div>
+
+        <div id="Rose2" style="display: none;">
+            <label for="roseWeight2">Weight of Roses (kg):</label>
+            <div style="display: flex;">
+                <select id="roseWeightDropdown2" name="roseWeightDropdown2" style="margin-right: 5px;" onkeydown="focusNext(event)">
+                    <option value="">Blank</option>
+                    <option value="गुलाब">गुलाब</option>
+                    <option value="Kashmiri">Kashmiri</option>
+                    <option value="GD">GD</option>
+                    <option value="बंडल">बंडल</option>
+                    <option value="डिवाइन">डिवाइन</option>
+                    <option value="जिप्सो">जिप्सो</option>
+                    <option value="पिनचिस">पिनचिस</option>
+                    <option value="सेवँती">सेवँती</option>
+                    <option value="नोरंगा">नोरंगा</option>
+                    <option value="पिंक सोफिया">पिंक सोफिया</option>
+                    <option value="बिजली">बिजली</option>
+                    
+                </select>
+                <input type="text" id="roseWeight2" name="roseWeight2" onkeydown="focusNext(event)">
+            </div>
+            <label for="roseRate2">Rate per kg (Rs):</label>
+            <input type="text" id="roseRate2" name="roseRate2" onkeydown="focusNext(event)">
+        </div>
+
+        <div id="Rose3" style="display: none;">
+            <label for="roseWeight3">Weight of Roses (kg):</label>
+            <div style="display: flex;">
+                <select id="roseWeightDropdown3" name="roseWeightDropdown3" style="margin-right: 5px;" onkeydown="focusNext(event)">
+                    <option value="">Blank</option>
+                    <option value="गुलाब">गुलाब</option>
+                        <option value="Kashmiri">Kashmiri</option>
+                        <option value="GD">GD</option>
+                        <option value="बंडल">बंडल</option>
+                        <option value="डिवाइन">डिवाइन</option>
+                        <option value="जिप्सो">जिप्सो</option>
+                        <option value="पिनचिस">पिनचिस</option>
+                        <option value="सेवँती">सेवँती</option>
+                        <option value="नोरंगा">नोरंगा</option>
+                        <option value="पिंक सोफिया">पिंक सोफिया</option>
+                        <option value="बिजली">बिजली</option>
+                </select>
+                <input type="text" id="roseWeight3" name="roseWeight3" onkeydown="focusNext(event)">
+            </div>
+            <label for="roseRate3">Rate per kg (Rs):</label>
+            <input type="text" id="roseRate3" name="roseRate3" onkeydown="focusNext(event)">
+        </div>
+
+        <button type="button" onclick="addRow()">Add</button>
+
+        <!-- Pouch Section -->
+        <div id="Container">
+                    <select id="flower_type" name="flower_type" style="margin-right: 5px;" onkeydown="focusNext(event)">
+                        <option value="गेंदा">गेंदा</option>
+                        <option value="पाउच">पाउच</option>
+                        <option value="पोटली">पोटली</option>
+                        <option value="क्रेट">क्रेट</option>
+                        <option value="बंच">बंच</option>
+                    </select>
+                    
+            <div id="Pouch">
+                <label for="pouchQuantity">Number of Pouches:</label>
+                <input type="text" id="pouchQuantity" name="pouchQuantity" onkeydown="focusNext(event)">
+                <label for="pouchRate">Rate per Pouch (Rs):</label>
+                <input type="text" id="pouchRate" name="pouchRate" onkeydown="focusNext(event)">
+            </div>
+        </div>
+        
+
+        <div id="Pouch1" style="display: none;">
+            <label for="pouchQuantity1">Number of Pouches:</label>
+            <input type="text" id="pouchQuantity1" name="pouchQuantity1" onkeydown="focusNext(event)">
+            <label for="pouchRate1">Rate per Pouch (Rs):</label>
+            <input type="text" id="pouchRate1" name="pouchRate1" onkeydown="focusNext(event)">
+        </div>
+
+        <div id="Pouch2" style="display: none;">
+            <label for="pouchQuantity2">Number of Pouches:</label>
+            <input type="text" id="pouchQuantity2" name="pouchQuantity2" onkeydown="focusNext(event)">
+            <label for="pouchRate2">Rate per Pouch (Rs):</label>
+            <input type="text" id="pouchRate2" name="pouchRate2" onkeydown="focusNext(event)">
+        </div>
+
+        <div id="Pouch3" style="display: none;">
+            <label for="pouchQuantity3">Number of Pouches:</label>
+            <input type="text" id="pouchQuantity3" name="pouchQuantity3" onkeydown="focusNext(event)">
+            <label for="pouchRate3">Rate per Pouch (Rs):</label>
+            <input type="text" id="pouchRate3" name="pouchRate3" onkeydown="focusNext(event)">
+        </div>
+
+        <button type="button" onclick="AddRow()">Add</button>
+
+        <!-- Other Inputs -->
+        <label for="totalPouches">Total Number of Pouches:</label>
+        <input type="text" id="totalPouches" name="totalPouches" onkeydown="focusNext(event)">
+
+        <label for="hammali">Hammali (Rs per kg):</label>
+        <input type="number" id="hammali" name="hammali" value="5" required>
+
+
+        <label for="roseRateFixed">Fixed Rate per kg (Rs) for Roses:</label>
+        <input type="text" id="roseRateFixed" name="roseRateFixed" onkeydown="focusNext(event)">
+        <label for="pouchRateFixed">Fixed Rate per Pouch (Rs) for Pouches:</label>
+        <input type="text" id="pouchRateFixed" name="pouchRateFixed" onkeydown="focusNext(event)">
+
+        <!-- Comment Input -->
+        <label for="comment">Comment:</label>
+<input type="text" list="commentList" id="comment" name="comment" placeholder="Enter or select a comment">
+<datalist id="commentList">
+    <option value="भैया आज तक के पैसे जोड़कर भेज दीजिये">
+    <option value="भैया क्रेट में भरती कम थी">
+    <option value="भैया गाड़ी लेट आयी थी आज">
+    <option value="भैया गेंद रखा है">
+    <option value="भैया माल हल्का है, अच्छी वाली 150 बिकी है">
+    <option value="भैया माल हल्का था">
+    <option value="भैया माल पत्ती था">
+    <option value="भैया माल पानी से खराब हो गया था">
+    <option value="भैया माल उबाल गया था">
+    <option value="माल में पानी था">
+    <option value="माल मीडियम था">
+    <option value="माल उबला था">
+    <option value="माल पत्ती था">
+    <option value="माल हल्का आ रहा है भैया">
+    <option value="माल हल्का था नहीं तो 100 बिकता">
+    <option value="माल पानी से खराब हो गया था">
+    <option value="अगली बार याद रखना इसे">
+    <option value="आधे पौच हल्के माल के थे">
+</datalist>
+
+
+        <button type="submit">Create Bill</button>
+    </form>
+
+    <!-- <div>
+        <h2>Fetch Kiraya Data</h2>
+        <form id="kirayaForm">
+            <label for="kirayaVehicleName">Vehicle Name:</label>
+            <select id="kirayaVehicleName">
+                <option value="">Select Vehicle</option>
+                <option value="Piyush">Piyush</option>
+                <option value="Patel">Patel</option>
+                <option value="Radhesyam">Radhesyam</option>
+                <option value="JaiMata">Jai Mata di</option>
+            </select>
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate">
+
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate">
+
+            <button type="button" onclick="fetchKirayaData()">Fetch Data</button>
+        </form>
+    </div> -->
+
+    <div id="bill"></div>
+    <div class="output-container" id="outputContainer">
+        <h2>Bill</h2>
+        <img id="bill-image" src="" alt="Bill Image">
+    </div>
+
+    <script>
+        function focusNext(event) {
+            if (event.key === "Enter" || event.key === "PageDown") {
+                event.preventDefault();
+                const formElements = Array.from(document.getElementById('billForm').elements);
+                const index = formElements.indexOf(event.target);
+                if (index > -1 && index < formElements.length - 1) {
+                    formElements[index + 1].focus();
+                }
+            }
+        }
+
+
+        // async function fetchKirayaData() {
+        //     const vehicleName = document.getElementById('kirayaVehicleName').value;
+        //     const startDate = document.getElementById('startDate').value;
+        //     const endDate = document.getElementById('endDate').value;
+
+        //     if (!vehicleName || !startDate || !endDate) {
+        //         alert('Please fill in all fields.');
+        //         return;
+        //     }
+
+        //     try {
+        //         const response = await fetch(`/fetch-kiraya?vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}`);
+        //         if (response.ok) {
+        //             const blob = await response.blob();
+        //             const url = window.URL.createObjectURL(blob);
+        //             const a = document.createElement('a');
+        //             a.style.display = 'none';
+        //             a.href = url;
+        //             a.download = 'kiraya_data.xlsx';
+        //             document.body.appendChild(a);
+        //             a.click();
+        //             window.URL.revokeObjectURL(url);
+        //         } else {
+        //             const data = await response.json();
+        //             alert(data.message);
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching kiraya data:', error);
+        //         alert('Failed to fetch kiraya data.');
+        //     }
+        // }
+    </script>
+
+
+
+<!-- ------------------------------------------CALCULATOR SCRIPT---------- -->
+
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    const modal = document.getElementById('calculator-modal');
+    const btn = document.getElementById('open-calculator');
+    const closeBtn = document.querySelector('.close');
+
+    // Open Modal on button click
+    btn.onclick = function() {
+        modal.style.display = 'flex';
+    }
+
+    // Close Modal when close button is clicked
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Close Modal when clicking outside of modal content
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+
+function handleKeyPress(event) {
+    const key = event.key;
+    const display = document.getElementById('display');
+
+    if (key >= '0' && key <= '9') {
+        inputNumber(key);
+    } else if (key === '.') {
+        inputDecimal(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        inputOperator(key);
+    } else if (key === 'Enter') {
+        calculateResult();
+    } else if (key === 'Backspace') {
+        deleteLast();
+    } else if (key === 'Escape') {
+        clearDisplay();
+    }
+}
+
+function inputNumber(number) {
+    const display = document.getElementById('display');
+    if (display.value === '0') {
+        display.value = number;
+    } else {
+        display.value += number;
+    }
+}
+
+function inputOperator(operator) {
+    const display = document.getElementById('display');
+    const lastChar = display.value.slice(-1);
+
+    if (['+', '-', '*', '/', '%'].includes(lastChar)) {
+        display.value = display.value.slice(0, -1) + operator;
+    } else {
+        display.value += operator;
+    }
+}
+
+function inputDecimal(dot) {
+    const display = document.getElementById('display');
+    const currentInput = display.value.split(/[\+\-\*\/]/).pop();
+
+    if (!currentInput.includes('.')) {
+        display.value += dot;
+    }
+}
+
+function clearDisplay() {
+    document.getElementById('display').value = '0';
+}
+
+function deleteLast() {
+    const display = document.getElementById('display');
+    if (display.value.length > 1) {
+        display.value = display.value.slice(0, -1);
+    } else {
+        display.value = '0';
+    }
+}
+
+function calculateResult() {
+    const display = document.getElementById('display');
+    try {
+        display.value = eval(display.value);
+    } catch (error) {
+        display.value = 'Error';
+    }
+}
+
+
+</script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="script.js"></script>
+
+    <button id="download-btn">Download Bill</button>
+
+    <button class="btn btn-fetch-bill" onclick="window.location.href='fetch-bill.html'"></button>
+    Fetch Bill
+</button>
+
+    
+</body>
+</html>

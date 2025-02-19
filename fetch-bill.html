@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,3 +117,123 @@ function displayBillData(bill) {
     <script src="server.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Specific Bill</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="fetchBillForm" method="POST" action="/fetch-bill">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" list="customerNames" name="customerName" id="customerName" placeholder="Enter Customer Name" required>
+        
+        <label for="currentDate">Date (DD/MM/YYYY):</label>
+        <input type="text" name="currentDate" id="currentDate" placeholder="Enter Date (DD/MM/YYYY)" required>
+        <datalist id="customerNames">
+            <option value="अंसुमन">
+            <option value="अतुल">
+            <option value="काना रमेश">
+            <option value="काव्या">
+            <option value="काला">
+            <option value="कमल">
+            <option value="कमलेश">
+            <option value="कुलदीप">
+            <option value="चिराग">
+            <option value="जीतेन्द्र">
+            <option value="तरुण">
+            <option value="देवश्री">
+            <option value="दिनेश">
+            <option value="दिलीप">
+            <option value="दुर्गेश">
+            <option value="पियूष">
+            <option value="पुना">
+            <option value="भोला">
+            <option value="मनीष">
+            <option value="मधुसूदन">
+            <option value="मदन">
+            <option value="मान">
+            <option value="मानवी">
+            <option value="राजेश">
+            <option value="रक्षिता">
+            <option value="राधेश्याम">
+            <option value="राधे">
+            <option value="विजय">
+            <option value="विनायक">
+            <option value="सावन">
+            <option value="सरवण">
+            <option value="तनु">
+            <option value="धर्मेंद्र">
+            <option value="नंदनी">
+            <option value="भोला">
+            <option value="हरिओम">
+            <option value="योगेश">
+            <option value="चिराग">
+            <option value="विस्वा"> 
+        </datalist>
+        
+        <button type="submit">Fetch Bill</button>
+      </form>
+      
+      
+      <div id="billData"></div>
+   <script>
+    document.getElementById('fetchBillForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  const customerName = document.getElementById('customerName').value;
+  const currentDate = document.getElementById('currentDate').value;
+
+  try {
+    const response = await fetch('/fetch-bill', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ customerName, currentDate }),
+    });
+    
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      displayBillData(data[0]);  // Assuming you are fetching one bill
+    } else {
+      document.getElementById('billData').innerHTML = 'No bill found for the given customer and date';
+    }
+  } catch (error) {
+    console.error('Error fetching bill:', error);
+  }
+});
+
+function displayBillData(bill) {
+  const billDiv = document.getElementById('billData');
+  billDiv.innerHTML = `
+    <p><strong>Customer Name:</strong> ${bill.customerName}</p>
+    <p><strong>Date:</strong> ${bill.currentDate}</p>
+    <p><strong>Rose Weight:</strong> ${bill.roseWeight}</p>
+    <p><strong>Rose Rate:</strong> ${bill.roseRate}</p>
+    <p><strong>Total Amount:</strong> ${bill.totalAmount}</p>
+    <img src="${bill.billImage}" alt="Bill Image">
+  `;
+}
+
+   </script>
+
+<button id="download-btn">Download Bill</button>
+
+<script>
+// Download button functionality
+    document.getElementById('download-btn').addEventListener('click', function() {
+        var link = document.createElement('a');
+        link.href = dataURL;
+        link.download = `bill-${customerName}-${formattedDate}.png`; // Download file name
+        link.click();
+    });</script>
+
+    <script src="server.js"></script>
+</body>
+</html>
+>>>>>>> b8388af4023f826c8fb824659d4c6987baee64f4
